@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Art public</title>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link rel="stylesheet" href="./assets/css/main.css">
+
+    <script type="module" src="./assets/script/main.mjs"></script>
+</head>
+
+<body>
+    <header class="top-nav">
+        <span class="logo"><a href="#"><img src="./assets/images/Ville_de_Montreal-logo-5EF06B8FB7-seeklogo.com.png"
+                    alt="logo de la ville de Montreal"></a></span>
+        <span class="filler"></span>
+        <nav class="menuPrincipal">
+            <a href="#!/liste">Oeuvres d'art public de Montréal</a>
+            <button class="material-symbols-outlined btnGrille">
+                grid_view
+            </button>
+            <button class="material-symbols-outlined btnListe">
+                view_list
+            </button>
+        </nav>
+    </header>
+    <main>
+        <aside class="rafr-rech">
+            <button class="rafraichir">Rafraichir la page</button>
+            <div class="recherche">
+                <input class="input-recherche" type="search" name="champs-rechercher" placeholder="votre recherche">
+                <button class="btn-rechercher">Rechercher</button>
+            </div>
+        </aside>
+        <aside class="filtre">
+            <div class="controle">
+                <div class="tri">
+                    <h3>Tri</h3>
+                    <p>Faire un choix par:</p>
+                    <div class="checkbox">
+                        <label for="titre"><strong>titre</strong></label>
+                        <input type="radio" id="titre" name="tri" value="titre">
+                    </div>
+
+                    <div class="checkbox">
+                        <label for="artiste"><strong>nom de famille</strong></label>
+                        <input type="radio" id="artiste" name="tri" value="artiste">
+                    </div>
+
+                    <button class="btnTri asc">ASC</button>
+                    <button class="btnTri desc">DESC</button>
+
+                </div>
+                <div class="applique"></div>
+                <div class="liste-categorie">
+
+                </div>
+            </div>
+            
+        </aside>
+        <section class="catalogue catalogue-grille">
+
+        </section>
+    </main>
+
+    <template type="tmpl" id="tmpl-carte-film">
+        <article class="carte">
+             <div class="fiche-grille">
+             <header>
+                 <h2>{{Titre}}</h2>
+             </header>
+             <div class="contenu">
+                 <p><strong>année:</strong></p> 
+                 <p>{{DateFinProduction}}</p>
+                 {{Artistes}}
+                 <p><strong>Arrondissement:</strong></p>
+                 <p>{{Arrondissement}}</p>
+                 <p><strong>Type:</strong></p>
+                 <p>{{SousCategorieObjet}}</p>
+                 <p><strong>Technique:</strong></p>
+                 <p>{{Technique}}</p>
+                 <button class="button agrandir-button">Agrandir</button>
+             </div>
+        </article>
+    </template>
+
+</body>
+
+</html>

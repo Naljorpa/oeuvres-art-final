@@ -1,0 +1,262 @@
+* {
+    font-family: 'Roboto', sans-serif;
+
+}
+
+html, body {
+    margin:0px;
+    padding:0px;
+}
+
+p{ 
+    margin: 0.7em 0 .1em 0;
+}
+
+/****************************
+Top Nav
+****************************/
+
+.logo img{
+width: 200px;
+}
+
+.top-nav{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    height: 64px;
+    background-color: #eefaf8;
+    align-items: center;
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+.top-nav nav {
+    display: flex;
+    flex-direction: row;
+}
+
+.top-nav a {
+    color: #097d6c;
+    text-decoration: none;
+    display: block;
+    margin: 0px 8px;
+    text-align: center;
+    align-self: center;
+}
+
+.top-nav .display{
+    align-self: center;
+}
+
+.top-nav button{
+    margin-left: 16px;
+    background-color: white;
+    border: 1px solid #097d6c;
+}
+
+.top-nav button:hover{
+    background-color: #097d6c;
+    color: white;
+}
+
+/***************************
+* Main
+****************************/
+main{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+main aside {
+    display: flex;
+    flex-direction: column;
+}
+
+/****************************
+Recherche
+*****************************/
+.recherche {
+    display: inline-block;
+    padding: 16px 0 16px 16px;
+    text-align: center;
+    width: 100vw;
+}
+.recherche input{
+    padding: 5px
+}
+.recherche button, .rafraichir{
+    background-color: #eefaf8;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 5px;
+}
+.recherche button:hover{
+    background-color: #097d6c;
+    color: white;
+}
+
+.rafraichir{
+    width: 150px;
+    margin: auto auto auto 16px;
+}
+
+.rafr-rech{
+    display:flex;
+    flex-direction: row;
+}
+
+/********************
+Section filtre
+**********************/
+
+.filtre{
+    padding: 16px 16px;
+    display: flex;
+    align-items: start;
+    flex-direction: column;
+    width: 150px;
+    
+}
+.filtre div {
+    display: flex;
+    flex-direction: column;
+    
+    /*margin-left:16px;*/
+}
+.filtre ul{
+    margin:0px;
+    padding: 0px 0px 0px 16px;
+}
+.filtre div span{
+    text-align:end;
+}
+
+.filtre [data-js-actif='1']{
+    border: 1px solid #CCC;
+}
+.filtre .choixFiltre{
+    list-style-type: none;
+    padding: 4px;
+}
+
+.filtre .choixFiltre:hover{
+    background-color: rgba(200,200,200,0.5);
+}
+
+.filtreChoisi{
+    background-color: rgba(200,200,200,0.5);
+}
+
+.applique{
+    border-top: 1px solid black;
+    margin-top: 16px;
+}
+
+
+.liste-categorie{
+    flex-direction: column;
+}
+
+/********************
+Section tri
+**********************/
+.tri .checkbox{
+    display: inline;
+}
+
+.btnTri{
+    border: 1px solid black;
+    border-radius: 5px;
+    color: #097d6c;
+    margin-top: 5px;
+    padding:5px;
+    background-color: #eefaf8;
+}
+
+/**************************
+Section catalogue
+******************************/
+/* *{
+    border: 1px dotted red;
+} */
+
+.catalogue-grille{
+    padding: 16px 16px;
+    display: grid;
+    grid-template-columns : repeat(auto-fill, minmax(300px, 1fr));
+    gap:16px;
+    width: calc(95vw - 150px);
+    box-sizing: border-box;
+}
+
+.catalogue-liste{
+    display: block;
+    width: calc(95vw - 150px);
+}
+
+
+/**************************
+Composant carte
+******************************/
+
+.catalogue-liste .carte {
+    overflow-y: hidden;
+    position: relative;
+    background-color: #eefaf8;
+    padding: 0 16px 16px 16px;
+    margin-bottom: 16px;
+    height: auto;
+}
+.catalogue-liste .fiche-grille p{
+    display: inline;
+    margin-right: 10px;
+}
+
+.catalogue-grille .carte {
+    overflow-y: hidden;
+    position: relative;
+    background-color: #eefaf8;
+    padding: 0 16px;
+    height: 400px;
+}
+
+.carte .contenu {
+    text-overflow: ellipsis;
+}
+
+.carte button{
+    border: 1px solid black;
+    border-radius: 5px;
+    color: #097d6c;
+    display: block;
+    padding:5px;
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+    background-color: #eefaf8;
+}
+
+.carte button:hover{
+    background-color: #097d6c;
+    color: white;
+}
+
+.modal-ouvert{
+    width: 50%;
+    background-color: #097d6c;
+    border: 1px solid black;
+    padding: 0 16px 16px;
+}
+
+.overflow{
+    overflow-y: hidden;
+}
+
+/************************
+Utilitaire
+************************/
+
+.filler {
+    flex-grow: 1;
+}
