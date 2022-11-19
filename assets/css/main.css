@@ -218,26 +218,22 @@ Composant carte
     position: relative;
     background-color: #eefaf8;
     padding: 0 16px;
-    height: 400px;
+    height: 500px;
 }
 
-.carte .contenu {
-    text-overflow: ellipsis;
-}
 
-.carte button{
-    border: 1px solid black;
-    border-radius: 5px;
-    color: #097d6c;
-    display: block;
-    padding:5px;
+
+.carte .detail{
+    text-decoration: none;
+    padding: 10px;
+    background-color:#79e9d6;
+    border-radius: 10px;
     position: absolute;
     bottom: 16px;
     right: 16px;
-    background-color: #eefaf8;
 }
 
-.carte button:hover{
+.carte .detail:hover{
     background-color: #097d6c;
     color: white;
 }
@@ -251,6 +247,41 @@ Composant carte
 
 .overflow{
     overflow-y: hidden;
+}
+
+.detail-contenu {
+    display: flex;
+    gap: 40px;
+    padding: 40px;
+    position: absolute;
+    
+}
+
+.detail-contenu div{
+    width: 400px;
+    position: relative;
+}
+
+.detail-contenu form{
+    background-color: #eefaf8;
+    padding: 40px;
+}
+label{
+display: block;
+margin-bottom: 10px;
+}
+input, select{
+    margin-bottom: 10px;
+    padding: 5px;
+}
+
+.submit{
+    background-color: #097d6c;
+    color: white;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 5px;
+    margin-top: 20px;
 }
 
 /************************

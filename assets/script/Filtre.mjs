@@ -14,10 +14,9 @@ export default class Filtre {
      */
 
     appliquerFiltre(data, oCatFiltre, applique) {
-        
         applique.innerHTML= `<strong>Filtre appliqué: </strong>`+ oCatFiltre.valeur;
         const aOeuvresFiltre = data.filter((oeuvre) => {
-            return (oeuvre[oCatFiltre.cat] == oCatFiltre.valeur);
+            return (oeuvre[oCatFiltre.categorie] == oCatFiltre.valeur);
         });
         return aOeuvresFiltre;
     }

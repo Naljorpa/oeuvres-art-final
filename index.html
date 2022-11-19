@@ -36,7 +36,6 @@
     </header>
     <main>
         <aside class="rafr-rech">
-            <button class="rafraichir">Rafraichir la page</button>
             <div class="recherche">
                 <input class="input-recherche" type="search" name="champs-rechercher" placeholder="votre recherche">
                 <button class="btn-rechercher">Rechercher</button>
@@ -66,31 +65,85 @@
 
                 </div>
             </div>
-            
+
         </aside>
         <section class="catalogue catalogue-grille">
 
         </section>
     </main>
 
-    <template type="tmpl" id="tmpl-carte-film">
+    <template type="tmpl" id="tmpl-carte-oeuvre">
         <article class="carte">
-             <div class="fiche-grille">
-             <header>
-                 <h2>{{Titre}}</h2>
-             </header>
-             <div class="contenu">
-                 <p><strong>année:</strong></p> 
-                 <p>{{DateFinProduction}}</p>
-                 {{Artistes}}
-                 <p><strong>Arrondissement:</strong></p>
-                 <p>{{Arrondissement}}</p>
-                 <p><strong>Type:</strong></p>
-                 <p>{{SousCategorieObjet}}</p>
-                 <p><strong>Technique:</strong></p>
-                 <p>{{Technique}}</p>
-                 <button class="button agrandir-button">Agrandir</button>
-             </div>
+            <div class="fiche-grille">
+                <header>
+                    <h2>{{Titre}}</h2>
+                </header>
+                <div class="contenu">
+                    <p><strong>année:</strong></p>
+                    <p>{{DateFinProduction}}</p>
+                    {{Artistes}}
+                    <p><strong>Arrondissement:</strong></p>
+                    <p>{{Arrondissement}}</p>
+                    <p><strong>Type:</strong></p>
+                    <p>{{SousCategorieObjet}}</p>
+                    <p><strong>Technique:</strong></p>
+                    <p>{{Technique}}</p>
+                    <div class="btn-detail">
+                        <a href="#!/detail?id={{NoInterne}}" class="detail">Detail</a>
+                    </div>
+                </div>
+        </article>
+    </template>
+
+    <template type="tmpl" id="tmpl-detail-oeuvre">
+        <article class="detail-contenu">
+            <div>
+                <p><strong>Titre:</strong></p>
+                <h1>{{Titre}}</h1>
+                {{Artistes}}
+                <p><strong>Année:</strong></p>
+                <p>{{DateFinProduction}}</p>
+                <p><strong>Emplacement:</strong></p>
+                <p>Arrondissement: {{Arrondissement}}<br> Parc: {{Parc}}<br>Batiment: {{Batiment}}<br>
+                    Adresse: {{AdresseCivique}}<br> Latitude/Longitude
+                    {{CoordonneeLatitude}}/{{CoordonneeLongitude}}</p>
+                <p><strong>Technique:</strong></p>
+                <p>{{Technique}} </p>
+                <p><strong>Matériaux:</strong></p>
+                <p>{{Materiaux}}</p>
+                <p><strong>Type:</strong></p>
+                <p>{{SousCategorieObjet}}</p>
+                <p><strong>Dimensions générales:</strong></p>
+                <p>{{DimensionsGenerales}}</p>
+                <p><strong>Mode d'acquisition:</strong></p>
+                <p>{{ModeAcquisition}}</p>
+                <p><strong>Support:</strong></p>
+                <p>{{Support}}</p>
+            </div>
+            <div class="form">
+                <form action="GET">
+                    <label for="prenom">Prenom: </label>
+                    <input type="text" placeholder="votre prenom">
+                    <label for="nom">Nom: </label>
+                    <input type="text" placeholder="votre nom">
+                    <label for="courriel:">Courriel</label>
+                    <input type="email" placeholder="votre courriel">
+                    <label for="pays">Choisissez votre pays:</label>
+                    <select name="pays" id="pays-select">
+                        <option value="">--Choisissez--</option>
+                            {{Pays}}
+                    </select>
+                    <div class="zone-etats">
+                    
+                    </div>
+                    <div class="zone-villes" >
+
+                    </div>
+                    <div class="zone-submit">
+
+                    </div>
+                </form>
+            </div>
         </article>
     </template>
 
