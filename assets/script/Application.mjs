@@ -314,7 +314,9 @@ export default class Application {
         }
 
         let domCatalogue = document.querySelector(".catalogue");
+        
         domCatalogue.innerHTML = "";
+
         Affichage.afficher(gabarit, oeuvreDetail, domCatalogue);
 
         this.afficherPays();
@@ -324,45 +326,50 @@ export default class Application {
     /*Fetch et affiche la liste le pays dans le formulaire */
     async afficherPays() {
         let data = await this.oPaysEtatsVille.listerPays();
+
         const domParent = document.querySelector(".zone-pays");
-        let chainePays = `<label for='pays'>Choisissez votre pays: </label>
-        <select name= 'pays' id='pays-select'><option value=''>--Choisissez--</option>`
+        const gabarit = document.querySelector("#tmpl-zone-pays");
+        const gabaritOption = document.querySelector("#tmpl-option");
 
-        data.forEach(element => {
-            chainePays += "<option value=" + element.iso2 + ">" + element.name + "</option>";
-        });
+        let options = Affichage.afficher(gabaritOption, data);
 
-        chainePays += "</select>"
-        domParent.innerHTML = chainePays;
-        const select = document.getElementById('pays-select');
+        let pays = {
+            pays: options
+        }
+
+        Affichage.afficher(gabarit, pays, domParent);
+
+        let select = document.getElementById('pays-select');
 
         let paysChoisi;
         select.addEventListener('change', (event) => {
             paysChoisi = event.target.value;
             this.afficherEtats(paysChoisi);
-
         })
     }
 
     /*Fetch et affiche la liste le etats lié à un pays dans le formulaire */
     async afficherEtats(paysChoisi) {
-
         let data = await this.oPaysEtatsVille.listerEtats(paysChoisi);
+
+        const gabarit = document.querySelector("#tmpl-zone-etats");
+        const gabaritOption = document.querySelector("#tmpl-option");
         const domParent = document.querySelector(".zone-etats");
         const domVille = document.querySelector(".zone-villes");
         const domSubmit = document.querySelector(".zone-submit");
+        const gabaritEtatsVide = document.querySelector("#tmpl-etats-vide");
+
+        let options = Affichage.afficher(gabaritOption, data);
 
         if (data.length > 0) {
             domParent.innerHTML = "";
             domVille.innerHTML = "";
-            let chaineEtats = "   <label for='etats'>Choisissez votre état:</label> <select name='etats' id='etats-select'><option value=''>--Choisissez--</option>"
 
-            data.forEach(element => {
-                chaineEtats += "<option value=" + element.iso2 + ">" + element.name + "</option>";
-            });
+            let etats = {
+                etats: options
+            }
 
-            chaineEtats += "</select>";
-            domParent.innerHTML = chaineEtats;
+            Affichage.afficher(gabarit, etats, domParent);
 
             const select = document.getElementById('etats-select');
 
@@ -377,10 +384,9 @@ export default class Application {
             domParent.innerHTML = "";
             domVille.innerHTML = "";
             domSubmit.innerHTML = "";
+            
 
-            let champsText = "<label for='etats'>Choisissez votre état:</label><input type='text' placeholder='votre état'><label for='villes'>Choisissez votre ville:</label> <input type='text' placeholder='votre ville'><br><input class='submit' type='submit'>";
-
-            domParent.innerHTML = champsText;
+            Affichage.afficher(gabaritEtatsVide, "", domParent);
         }
 
     }
@@ -388,19 +394,24 @@ export default class Application {
     /*Fetch et affiche la liste le ville lié à un état dans le formulaire */
     async afficherVilles(etatChoisi, paysChoisi) {
 
+        const gabarit = document.querySelector("#tmpl-zone-villes");
+        const gabaritOption = document.querySelector("#tmpl-option");
+        const gabaritVillesVide = document.querySelector("#tmpl-villes-vide");
         const domParent = document.querySelector(".zone-villes");
+
         let data = await this.oPaysEtatsVille.listerVilles(paysChoisi, etatChoisi);
 
+        let options = Affichage.afficher(gabaritOption, data);
+        
         if (data.length > 0) {
-            let chaineEtats = "   <label for='villes'>Choisissez votre ville:</label> <select name='ville' id='villes-select'><option value=''>--Choisissez--</option>"
+            
+            domParent.innerHTML = "";
 
-            data.forEach(element => {
-                chaineEtats += "<option value=" + element.iso2 + ">" + element.name + "</option>";
-            });
+            let villes = {
+                villes: options
+            }
 
-            chaineEtats += "</select>";
-
-            domParent.innerHTML = chaineEtats;
+         Affichage.afficher(gabarit, villes, domParent);
 
             const select = document.getElementById('villes-select');
 
@@ -409,10 +420,7 @@ export default class Application {
             })
         } else {
             domParent.innerHTML = "";
-
-            let champsText = "<label for='villes'>Choisissez votre ville:</label> <input type='text' placeholder='votre ville'><br><input class='submit' type='submit'>";
-
-            domParent.innerHTML = champsText;
+            Affichage.afficher(gabaritVillesVide, "", domParent);
         }
     }
     /*Afficher le bouton submit*/
