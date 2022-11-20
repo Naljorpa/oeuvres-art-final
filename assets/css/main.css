@@ -226,6 +226,7 @@ Composant carte
 .carte .detail{
     text-decoration: none;
     padding: 10px;
+    color: black;
     background-color:#79e9d6;
     border-radius: 10px;
     position: absolute;

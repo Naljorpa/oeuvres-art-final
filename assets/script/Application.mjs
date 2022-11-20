@@ -4,30 +4,25 @@ import Routeur from "./Routeur.mjs";
 import Catalogue from "./Catalogue.mjs";
 import Filtre from "./Filtre.mjs";
 import Tri from "./Tri.mjs";
-import PaysEtatsVille from "./countries-states-cities.mjs";
+import PaysEtatsVille from "./Countries-states-cities.mjs";
 
 export default class Application {
 
     #aData;
 
     constructor() {
-        this.oCatalogue = new Catalogue();
-        this.routeur = new Routeur();
-        this.oPaysEtatsVille = new PaysEtatsVille();
-
 
         const noeudCatalogue = document.querySelector(".catalogue");
         const noeudTri = document.querySelector(".tri");
         const noeudFiltre = document.querySelector(".liste-categorie");
-
-
         const btnGrille = document.querySelector(".btnGrille");
         const btnListe = document.querySelector(".btnListe");
 
+        this.oCatalogue = new Catalogue();
+        this.routeur = new Routeur();
+        this.oPaysEtatsVille = new PaysEtatsVille();
         this.oFiltre = new Filtre(noeudFiltre);
         this.oTri = new Tri();
-
-
 
         this.routeur.ajouterRoute("liste", this.routeListe.bind(this));
         this.routeur.ajouterRoute("detail", this.routeDetail.bind(this));
@@ -39,32 +34,37 @@ export default class Application {
 
         this.routeur.demarrer();
 
+
+        /** Écoute le le bouton recherche et construit l'url de la recherche*/
         document.querySelector(".btn-rechercher").addEventListener("click", () => {
             const recherche = document.querySelector("[name='champs-rechercher']").value;
             let infoRoute = this.routeur.getInfoRoute();
             let route = infoRoute.route[0];
+
             this.routeur.naviguer(route + "?recherche=" + recherche);
         })
 
+        /** Écoute le type de tri et l'ordre de celui-ci et construit l'url du tri*/
         noeudTri.addEventListener("click", (e) => {
             let cible = e.target;
             let infoRoute = this.routeur.getInfoRoute();
             let route = infoRoute.route[0];
             let typeTri = noeudTri.querySelector('input[name="tri"]:checked');
+
             if (cible.classList.contains("asc") && typeTri !== null) {
                 const asc = "asc";
                 const tri = typeTri.value;
                 this.routeur.naviguer(route + "?ordre=" + asc + "&tri=" + tri);
             }
+
             if (cible.classList.contains("desc") && typeTri !== null) {
                 const desc = "desc";
                 const tri = typeTri.value;
                 this.routeur.naviguer(route + "?ordre=" + desc + "&tri=" + tri);
             }
-
         })
 
-
+        /** Écoute le type de filtre et construit son url*/
         noeudFiltre.addEventListener("click", (e) => {
             let cible = e.target;
             let infoRoute = this.routeur.getInfoRoute();
@@ -108,19 +108,20 @@ export default class Application {
 
     }
 
-
+    /**
+     * Gère les routes et l'affichage dans la page de liste
+     * @param {object} paramRequete //contient la route et des paramètres
+     */
     async routeListe(paramRequete) {
 
         let parametre = paramRequete.parametre;
-        let aRoute = paramRequete.route;
+        // const params = {
+        //     cb: this.afficherOeuvres.bind(this)
+        // };
 
-        const params = {
-            // ressource: "",
-            cb: this.afficherOeuvres.bind(this)
-        };
-
-        let data = await this.oCatalogue.listerOeuvres(params);
-
+        let data = await this.oCatalogue.listerOeuvres();
+        
+        this.afficherOeuvres(data);
         this.oFiltre.setCat(data);
         this.oFiltre.rendu();
 
@@ -289,7 +290,7 @@ export default class Application {
                 }
             });
         }
-        
+
         let data = await this.oPaysEtatsVille.listerPays();
 
 
@@ -324,9 +325,6 @@ export default class Application {
         let domCatalogue = document.querySelector(".catalogue");
         domCatalogue.innerHTML = "";
         Affichage.afficher(gabarit, oeuvreDetail, domCatalogue);
-
-
-        //Source du snippet de code suivant: https://bobbyhadz.com/blog/javascript-select-onchange-get-value
 
         const select = document.getElementById('pays-select');
 

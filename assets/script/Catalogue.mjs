@@ -12,11 +12,11 @@ export default class Catalogue {
     let response = await fetch(this.#URL);
     resultat = await response.json();
 
-    if (params.cb) {
+    // if (params.cb) {
 
-      params.cb(resultat);
+    //   params.cb(resultat);
 
-    }
+    // }
 
     return resultat;
 
