@@ -15,8 +15,8 @@ export default class Filtre {
      */
 
     appliquerFiltre(data, oCatFiltre, applique) {
-        
-        applique.innerHTML= `<strong>Filtre appliqué: </strong>`+ oCatFiltre.valeur;
+
+        applique.innerHTML = `<strong>Filtre appliqué: </strong>` + oCatFiltre.valeur;
         const aOeuvresFiltre = data.filter((oeuvre) => {
             return (oeuvre[oCatFiltre.categorie] == oCatFiltre.valeur);
         });
@@ -73,36 +73,8 @@ export default class Filtre {
 
         this.#aData.push(valEtEtiquette);
 
-
+        return this.#aData;
     }
 
-    /**
-     * Crée le DOM de la section des filtres à partir des catégories éxistantes 
-     */
-    rendu() {
-
-        let chaineHTML = `<h3>Filtres</h3>`;
-
-        this.#aData.forEach((element, index) => {
-            if (index == 0) {
-                chaineHTML += `<details><summary><strong>Type</strong></summary>`;
-                element.forEach(cat => {
-                    chaineHTML +=
-                        `  <li class="choixFiltre" data-js-cat="${cat.categorie}" data-js-cat-valeur="${cat.valeur}" data-js-actif="0">${cat.etiquette}</li>`
-                })
-                chaineHTML += `</details>`
-            }
-
-            if (index == 1) {
-                chaineHTML += `<details><summary><strong>Arrondissement</strong></summary>`;
-                element.forEach(cat => {
-                    chaineHTML +=
-                        `  <li class="choixFiltre" data-js-cat="${cat.categorie}" data-js-cat-valeur="${cat.valeur}" data-js-actif="0">${cat.etiquette}</li>`
-                })
-                chaineHTML += `</details>`
-            }
-        });
-        this.domParent.innerHTML = chaineHTML;
-    }
-
+  
 }

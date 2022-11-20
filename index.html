@@ -41,36 +41,61 @@
                 <button class="btn-rechercher">Rechercher</button>
             </div>
         </aside>
-        <aside class="filtre">
-            <div class="controle">
-                <div class="tri">
-                    <h3>Tri</h3>
-                    <p>Faire un choix par:</p>
-                    <div class="checkbox">
-                        <label for="titre"><strong>titre</strong></label>
-                        <input type="radio" id="titre" name="tri" value="titre">
+        <div class="mega-wrapper">
+            <aside class="filtre">
+                <div class="controle">
+                    <div class="tri">
+                        <h3>Tri</h3>
+                        <p>Faire un choix par:</p>
+                        <div class="checkbox">
+                            <label for="titre"><strong>titre</strong></label>
+                            <input type="radio" id="titre" name="tri" value="titre">
+                        </div>
+
+                        <div class="checkbox">
+                            <label for="artiste"><strong>nom de famille</strong></label>
+                            <input type="radio" id="artiste" name="tri" value="artiste">
+                        </div>
+
+                        <button class="btnTri asc">ASC</button>
+                        <button class="btnTri desc">DESC</button>
+
                     </div>
+                    <div class="applique"></div>
+                    <div class="liste-categorie">
+                        <h3>Filtres</h3>
+                        <details>
+                            <summary><strong>Type</strong></summary>
+                            <div class="zone-filtre1">
 
-                    <div class="checkbox">
-                        <label for="artiste"><strong>nom de famille</strong></label>
-                        <input type="radio" id="artiste" name="tri" value="artiste">
+                            </div>
+                        </details>
+                        <details>
+                            <summary><strong>Arrondissement</strong></summary>
+                            <div class="zone-filtre2">
+
+                            </div>
+                        </details>
                     </div>
-
-                    <button class="btnTri asc">ASC</button>
-                    <button class="btnTri desc">DESC</button>
-
                 </div>
-                <div class="applique"></div>
-                <div class="liste-categorie">
+            </aside>
+            <section class="catalogue catalogue-grille">
 
-                </div>
-            </div>
-
-        </aside>
-        <section class="catalogue catalogue-grille">
-
-        </section>
+            </section>
+        </div>
     </main>
+
+
+    <template type="tmpl" id="tmpl-filtre1">
+        <li class="choixFiltre" data-js-cat="{{categorie}}" data-js-cat-valeur="{{valeur}}" data-js-actif="0">
+            {{etiquette}}</li>
+    </template>
+
+    <template type="tmpl" id="tmpl-filtre2">
+        <li class="choixFiltre" data-js-cat="{{categorie}}" data-js-cat-valeur="{{valeur}}" data-js-actif="0">
+            {{etiquette}}</li>
+    </template>
+
 
     <template type="tmpl" id="tmpl-carte-oeuvre">
         <article class="carte">
@@ -128,8 +153,8 @@
                     <input type="text" placeholder="votre nom">
                     <label for="courriel:">Courriel</label>
                     <input type="email" placeholder="votre courriel">
-                    
-                    <div class = "zone-pays">
+
+                    <div class="zone-pays">
 
                     </div>
                     <div class="zone-etats">
@@ -148,25 +173,25 @@
 
     <template type="tmpl" id="tmpl-zone-pays">
         <label for='pays'>Choisissez votre pays: </label>
-        <select name= 'pays' id='pays-select'>
-        <option value=''>--Choisissez--</option>
-        {{pays}}
+        <select name='pays' id='pays-select'>
+            <option value=''>--Choisissez--</option>
+            {{pays}}
         </select>
     </template>
 
     <template type="tmpl" id="tmpl-zone-etats">
         <label for='etats'>Choisissez votre province: </label>
-        <select name= 'etats' id='etats-select'>
-        <option value=''>--Choisissez--</option>
-        {{etats}}
+        <select name='etats' id='etats-select'>
+            <option value=''>--Choisissez--</option>
+            {{etats}}
         </select>
     </template>
 
     <template type="tmpl" id="tmpl-zone-villes">
-        <label for='villes'>Choisissez votre province: </label>
-        <select name= 'villes' id='villes-select'>
-        <option value=''>--Choisissez--</option>
-        {{villes}}
+        <label for='villes'>Choisissez votre ville: </label>
+        <select name='villes' id='villes-select'>
+            <option value=''>--Choisissez--</option>
+            {{villes}}
         </select>
     </template>
 
@@ -175,11 +200,14 @@
     </template>
 
     <template type="tmpl" id="tmpl-etats-vide">
-        <label for='etats'>Choisissez votre état:</label><input type='text' placeholder='votre état'><label for='villes'>Choisissez votre ville:</label> <input type='text' placeholder='votre ville'><br><input class='submit' type='submit'>
+        <label for='etats'>Choisissez votre état:</label><input type='text' placeholder='votre état'><label
+            for='villes'>Choisissez votre ville:</label> <input type='text' placeholder='votre ville'><br><input
+            class='submit' type='submit'>
     </template>
 
     <template type="tmpl" id="tmpl-villes-vide">
-        <label for='villes'>Choisissez votre ville:</label> <input type='text' placeholder='votre ville'><br><input class='submit' type='submit'>
+        <label for='villes'>Choisissez votre ville:</label> <input type='text' placeholder='votre ville'><br><input
+            class='submit' type='submit'>
     </template>
 
 

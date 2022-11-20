@@ -63,15 +63,8 @@ width: 200px;
 /***************************
 * Main
 ****************************/
-main{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-}
-main aside {
-    display: flex;
-    flex-direction: column;
-}
+
+
 
 /****************************
 Recherche
@@ -109,14 +102,15 @@ Recherche
 /********************
 Section filtre
 **********************/
+.mega-wrapper{
+    display: flex;
+}
 
 .filtre{
     padding: 16px 16px;
-    display: flex;
     align-items: start;
     flex-direction: column;
-    width: 150px;
-    
+    flex: 0 1 15%;
 }
 .filtre div {
     display: flex;
@@ -142,6 +136,10 @@ Section filtre
 
 .filtre .choixFiltre:hover{
     background-color: rgba(200,200,200,0.5);
+}
+
+.filtre label{
+    display: inline;
 }
 
 .filtreChoisi{
@@ -182,6 +180,7 @@ Section catalogue
 } */
 
 .catalogue-grille{
+    flex: 0 1 85%;
     padding: 16px 16px;
     display: grid;
     grid-template-columns : repeat(auto-fill, minmax(300px, 1fr));
@@ -291,4 +290,8 @@ Utilitaire
 
 .filler {
     flex-grow: 1;
+}
+
+.hidden{
+    display: none;
 }

@@ -87,7 +87,10 @@ export default class Application {
                 };
                 this.routeur.naviguer(route + "?categorie=" + dataFiltre.cat + "&valeur=" + dataFiltre.valeur);
             }
+
         });
+
+
 
         /*Écoute le clic sur les boutons de display en liste et en grille et affiche le tout selon la sélection*/
 
@@ -107,6 +110,27 @@ export default class Application {
 
     }
 
+
+    /**
+     * Affiche les champs filtre de façon dynamique 
+     * @param {Array} data //array double d'objet nécessitant division
+     */
+    afficherFiltre(data) {
+        const domParent1 = document.querySelector(".zone-filtre1");
+        const domParent2 = document.querySelector(".zone-filtre2");
+        const gabarit1 = document.querySelector("#tmpl-filtre1");
+        const gabarit2 = document.querySelector("#tmpl-filtre2");
+        const noeudFiltre = document.querySelector(".liste-categorie");
+
+        let arrayOne = data.slice(0, 1);
+        let arrayTwo = data.slice(1, 2);
+        domParent1.innerHTML = "";
+        domParent2.innerHTML = "";
+        Affichage.afficher(gabarit1, arrayOne[0], domParent1);
+        Affichage.afficher(gabarit2, arrayTwo[0], domParent2);
+    }
+
+
     /**
      * Gère les routes et l'affichage dans la page de liste
      * @param {object} paramRequete //contient la route et des paramètres
@@ -115,10 +139,25 @@ export default class Application {
 
         let parametre = paramRequete.parametre;
         let data = await this.oCatalogue.listerOeuvres();
+        const noeudTriFiltre = document.querySelector(".filtre");
+        const noeudRecherche = document.querySelector(".recherche")
+
+        if (noeudTriFiltre.classList.contains("hidden")) {
+            noeudTriFiltre.classList.remove("hidden");
+        }
+
+        if (noeudRecherche.classList.contains("hidden")) {
+            noeudRecherche.classList.remove("hidden");
+        }
 
         this.afficherOeuvres(data);
-        this.oFiltre.setCat(data);
-        this.oFiltre.rendu();
+
+        let dataFiltre = this.oFiltre.setCat(data);
+
+
+        this.afficherFiltre(dataFiltre);
+
+        // this.oFiltre.rendu();
 
 
         /* Effectue la recherce (j'ai essayé de sortir ceci et la mettre dans sa propre classe mais sans succès) */
@@ -174,6 +213,12 @@ export default class Application {
     */
     async routeDetail(paramRequete) {
         let parametre = paramRequete.parametre;
+
+        const noeudTriFiltre = document.querySelector(".filtre");
+        const noeudRecherche = document.querySelector(".recherche")
+
+        noeudRecherche.classList.add("hidden");
+        noeudTriFiltre.classList.add("hidden");
 
         if (parametre.id) {
             let id = parametre.id;
@@ -310,11 +355,11 @@ export default class Application {
             Materiaux: oeuvre.Materiaux,
             DimensionsGenerales: oeuvre.DimensionsGenerales,
             ModeAcquisition: oeuvre.ModeAcquisition,
-            Support: oeuvre.Support,
+            Support: oeuvre.Support
         }
 
         let domCatalogue = document.querySelector(".catalogue");
-        
+
         domCatalogue.innerHTML = "";
 
         Affichage.afficher(gabarit, oeuvreDetail, domCatalogue);
@@ -342,6 +387,7 @@ export default class Application {
         let select = document.getElementById('pays-select');
 
         let paysChoisi;
+
         select.addEventListener('change', (event) => {
             paysChoisi = event.target.value;
             this.afficherEtats(paysChoisi);
@@ -380,15 +426,14 @@ export default class Application {
 
             })
 
-        } else {
+        } else if (data.length == 0) {
             domParent.innerHTML = "";
             domVille.innerHTML = "";
             domSubmit.innerHTML = "";
-            
+
 
             Affichage.afficher(gabaritEtatsVide, "", domParent);
         }
-
     }
 
     /*Fetch et affiche la liste le ville lié à un état dans le formulaire */
@@ -397,21 +442,22 @@ export default class Application {
         const gabarit = document.querySelector("#tmpl-zone-villes");
         const gabaritOption = document.querySelector("#tmpl-option");
         const gabaritVillesVide = document.querySelector("#tmpl-villes-vide");
+
         const domParent = document.querySelector(".zone-villes");
 
         let data = await this.oPaysEtatsVille.listerVilles(paysChoisi, etatChoisi);
 
         let options = Affichage.afficher(gabaritOption, data);
-        
+
         if (data.length > 0) {
-            
+
             domParent.innerHTML = "";
 
             let villes = {
                 villes: options
             }
 
-         Affichage.afficher(gabarit, villes, domParent);
+            Affichage.afficher(gabarit, villes, domParent);
 
             const select = document.getElementById('villes-select');
 
