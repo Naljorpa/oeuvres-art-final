@@ -85,7 +85,6 @@ export default class Application {
                     cat: cible.dataset.jsCat,
                     valeur: cible.dataset.jsCatValeur
                 };
-                console.log(dataFiltre);
                 this.routeur.naviguer(route + "?categorie=" + dataFiltre.cat + "&valeur=" + dataFiltre.valeur);
             }
         });
@@ -115,19 +114,14 @@ export default class Application {
     async routeListe(paramRequete) {
 
         let parametre = paramRequete.parametre;
-        // const params = {
-        //     cb: this.afficherOeuvres.bind(this)
-        // };
-
         let data = await this.oCatalogue.listerOeuvres();
-        
+
         this.afficherOeuvres(data);
         this.oFiltre.setCat(data);
         this.oFiltre.rendu();
 
 
-        // console.log(data);
-
+        /* Effectue la recherce (j'ai essayé de sortir ceci et la mettre dans sa propre classe mais sans succès) */
         if (parametre.recherche) {
 
             let valeur;
@@ -174,17 +168,16 @@ export default class Application {
 
     }
 
+    /**
+    * Gère les routes et l'affichage dans la page de détail
+    * @param {object} paramRequete //contient la route et des paramètres
+    */
     async routeDetail(paramRequete) {
         let parametre = paramRequete.parametre;
-        let aRoute = paramRequete.route;
-
-        const params = {
-            cb: this.afficherOeuvres.bind(this)
-        };
 
         if (parametre.id) {
             let id = parametre.id;
-            let data = await this.oCatalogue.listerUneOeuvre(params, id);
+            let data = await this.oCatalogue.listerUneOeuvre(id);
             let oeuvre;
 
             data.forEach(element => {
@@ -201,6 +194,10 @@ export default class Application {
 
     }
 
+    /**
+     * Gère l'affichage des oeuvres
+     * @param {Array} data //Tableau des oeuvres à afficher
+     */
     afficherOeuvres(data) {
 
         const listeOeuvres = [];
@@ -259,6 +256,10 @@ export default class Application {
         document.querySelector(".catalogue").innerHTML = html;
     }
 
+    /**
+   * Gère l'affichage d'un oeuvre et aussi d'une parti du formulaire
+   * @param {Object} oeuvre 
+   */
     async afficherUnOeuvre(oeuvre) {
 
         let gabarit = document.querySelector("#tmpl-detail-oeuvre");
@@ -272,6 +273,7 @@ export default class Application {
             dateFinProd = "non disponible";
         }
 
+        /*Formate l'affichage des artistes en transformant le tableau d'object artiste en string injectable */
         let chaineArtiste = "<p><strong>Artiste(s):</strong></p>";
 
         if (oeuvre.Artistes.length > 1) {
@@ -291,16 +293,7 @@ export default class Application {
             });
         }
 
-        let data = await this.oPaysEtatsVille.listerPays();
-
-
-        let chainePays = ""
-        data.forEach(element => {
-            chainePays += "<option value=" + element.iso2 + ">" + element.name + "</option>";
-        });
-
-
-
+        /*Nouveau tableau pour injecter dans le template */
         let oeuvreDetail = {
             Titre: oeuvre.Titre,
             DateFinProduction: dateFinProd,
@@ -318,14 +311,29 @@ export default class Application {
             DimensionsGenerales: oeuvre.DimensionsGenerales,
             ModeAcquisition: oeuvre.ModeAcquisition,
             Support: oeuvre.Support,
-
-            Pays: chainePays
         }
 
         let domCatalogue = document.querySelector(".catalogue");
         domCatalogue.innerHTML = "";
         Affichage.afficher(gabarit, oeuvreDetail, domCatalogue);
 
+        this.afficherPays();
+
+    }
+
+    /*Fetch et affiche la liste le pays dans le formulaire */
+    async afficherPays() {
+        let data = await this.oPaysEtatsVille.listerPays();
+        const domParent = document.querySelector(".zone-pays");
+        let chainePays = `<label for='pays'>Choisissez votre pays: </label>
+        <select name= 'pays' id='pays-select'><option value=''>--Choisissez--</option>`
+
+        data.forEach(element => {
+            chainePays += "<option value=" + element.iso2 + ">" + element.name + "</option>";
+        });
+
+        chainePays += "</select>"
+        domParent.innerHTML = chainePays;
         const select = document.getElementById('pays-select');
 
         let paysChoisi;
@@ -334,9 +342,9 @@ export default class Application {
             this.afficherEtats(paysChoisi);
 
         })
-
     }
 
+    /*Fetch et affiche la liste le etats lié à un pays dans le formulaire */
     async afficherEtats(paysChoisi) {
 
         let data = await this.oPaysEtatsVille.listerEtats(paysChoisi);
@@ -348,9 +356,11 @@ export default class Application {
             domParent.innerHTML = "";
             domVille.innerHTML = "";
             let chaineEtats = "   <label for='etats'>Choisissez votre état:</label> <select name='etats' id='etats-select'><option value=''>--Choisissez--</option>"
+
             data.forEach(element => {
                 chaineEtats += "<option value=" + element.iso2 + ">" + element.name + "</option>";
             });
+
             chaineEtats += "</select>";
             domParent.innerHTML = chaineEtats;
 
@@ -362,16 +372,20 @@ export default class Application {
                 this.afficherVilles(etatChoisi, paysChoisi);
 
             })
+
         } else {
             domParent.innerHTML = "";
             domVille.innerHTML = "";
             domSubmit.innerHTML = "";
+
             let champsText = "<label for='etats'>Choisissez votre état:</label><input type='text' placeholder='votre état'><label for='villes'>Choisissez votre ville:</label> <input type='text' placeholder='votre ville'><br><input class='submit' type='submit'>";
+
             domParent.innerHTML = champsText;
         }
 
     }
 
+    /*Fetch et affiche la liste le ville lié à un état dans le formulaire */
     async afficherVilles(etatChoisi, paysChoisi) {
 
         const domParent = document.querySelector(".zone-villes");
@@ -395,14 +409,18 @@ export default class Application {
             })
         } else {
             domParent.innerHTML = "";
+
             let champsText = "<label for='villes'>Choisissez votre ville:</label> <input type='text' placeholder='votre ville'><br><input class='submit' type='submit'>";
+
             domParent.innerHTML = champsText;
         }
     }
-
+    /*Afficher le bouton submit*/
     afficherSubmit() {
         const domParent = document.querySelector(".zone-submit");
+
         let chaineSubmit = '<input class="submit" type="submit">';
+
         domParent.innerHTML = chaineSubmit;
     }
 

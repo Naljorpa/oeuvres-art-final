@@ -28,7 +28,7 @@ export default class PaysEtatsVille {
     }
 
     async listerEtats(pays){
-        console.log(pays);
+      
         let resultat;
         let response = await fetch(this.#URL+"/"+pays+"/states", this.requestOptions);
         resultat = await response.json();
@@ -37,6 +37,7 @@ export default class PaysEtatsVille {
     }
 
     async listerVilles(pays, etats){
+        
         let resultat;
         let response = await fetch(this.#URL+"/"+pays+"/states/"+etats+"/cities", this.requestOptions);
         resultat = await response.json();

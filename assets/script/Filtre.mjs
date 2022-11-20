@@ -10,10 +10,12 @@ export default class Filtre {
      * Applique les filtres sur le tableau de des oeuvres
      * @param {array} data -le tableau des oeuvres
      * @param {object} oCatFiltre -objet avec sa categorie et valeur
+     * @param {string} applique - string de la zone ou appliqué la mention du filtre appliqué
      * @returns 
      */
 
     appliquerFiltre(data, oCatFiltre, applique) {
+        
         applique.innerHTML= `<strong>Filtre appliqué: </strong>`+ oCatFiltre.valeur;
         const aOeuvresFiltre = data.filter((oeuvre) => {
             return (oeuvre[oCatFiltre.categorie] == oCatFiltre.valeur);
