@@ -17,6 +17,10 @@ export default class PaysEtatsVille {
 
    }
 
+   /**
+    * Fetch et retourne la liste des pays de l'api
+    * @returns {Array}
+    */
     async listerPays(){
 
         let resultat;
@@ -27,6 +31,10 @@ export default class PaysEtatsVille {
        
     }
 
+    /**
+    * Fetch et retourne la liste des etats de l'api
+    * @returns {Array}
+    */
     async listerEtats(pays){
       
         let resultat;
@@ -36,6 +44,10 @@ export default class PaysEtatsVille {
         return resultat;
     }
 
+    /**
+    * Fetch et retourne la liste des villes de l'api
+    * @returns {Array}
+    */
     async listerVilles(pays, etats){
         
         let resultat;

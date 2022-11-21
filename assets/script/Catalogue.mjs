@@ -6,6 +6,10 @@ export default class Catalogue {
 
   }
 
+  /**
+   * Fetch et retourne la liste des oeuvres du json
+   * @returns 
+   */
   async listerOeuvres() {
 
     let resultat;
@@ -15,6 +19,11 @@ export default class Catalogue {
 
   }
 
+ /**
+  * Fetch et retourne un oeuvre du json grace a sont id
+  * @param {String} id 
+  * @returns 
+  */
   async listerUneOeuvre(id) {
 
     let resultat;

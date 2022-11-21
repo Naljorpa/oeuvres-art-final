@@ -19,8 +19,6 @@
                 e.preventDefault();
                 let cible = e.target;
                 let hash = cible.hash;
-                console.log(hash)
-                //console.log(e);
                 history.pushState({}, "", hash);
                 this.changerRoute(hash);
 
@@ -38,7 +36,6 @@
             route = "/"+route;
         }
         this.#routes[route] = {cb:cb};
-        console.log (this.#routes)
         
     }
     /**
@@ -58,7 +55,6 @@
         else{
             history.pushState({}, "", hash);
         }
-        console.log(hash, route)
         this.changerRoute(hash);
     }
     /**
@@ -79,7 +75,6 @@
      * @param {PopStateEvent} e 
      */
     dePopState(e){
-        console.log(e);
         let hash = location.hash;
         this.changerRoute(hash);
     }
@@ -90,7 +85,6 @@
      */
     changerRoute(hash){
         let parametreRoute = this.getParamRoute(hash);
-        console.log(parametreRoute);
         //this.#routeActive = hash.match("#!/(.*)$")[1].replace("/", "");
         this.#routeActive = parametreRoute.route[0];
         
@@ -134,7 +128,6 @@
                 aRoute = [route];
             }    
             else{
-                console.log(route)
                 if(route.charAt(0)== "/"){
                     route = route.replace("/", ""); // Retrait du premier /
                 }
@@ -148,7 +141,6 @@
                 }
             }
         }
-        //console.log(analyseRoute)
         this.dataRoute = {
             parametre : parametre,
             route : aRoute,

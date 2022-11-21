@@ -157,9 +157,6 @@ export default class Application {
 
         this.afficherFiltre(dataFiltre);
 
-        // this.oFiltre.rendu();
-
-
         /* Effectue la recherce (j'ai essayé de sortir ceci et la mettre dans sa propre classe mais sans succès) */
         if (parametre.recherche) {
 
@@ -430,7 +427,6 @@ export default class Application {
             domParent.innerHTML = "";
             domVille.innerHTML = "";
             domSubmit.innerHTML = "";
-
 
             Affichage.afficher(gabaritEtatsVide, "", domParent);
         }
